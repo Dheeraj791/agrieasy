@@ -1,6 +1,6 @@
 @import 'treo';
 
-registeredusers{}
+CropsearchComponent{}
 
 // -----------------------------------------------------------------------------------------------------
 // @ Theming
@@ -16,23 +16,6 @@ registeredusers{}
 
 }
 
-.mat-select-content{
-    margin: 10px;
-}
-
-
-.mat-slide-toggle-bar, .mat-slide-toggle-thumb {
-    transition: all 80ms linear;
-    transition-property: background-color;
-    transition-delay: 50ms;
-}
-.mat-slide-toggle-bar {
-    position: relative;
-    width: 36px;
-    height: 14px;
-    flex-shrink: 0;
-    border-radius: 8px;
-}
 .myCustomModalClass .modal-dialog {
     //any change in overall modal
     .modal-header {
@@ -40,26 +23,35 @@ registeredusers{}
         color: #fff !important;
     }
 
-     .form_group_main {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    margin: 0 -8px !important;
-        .form-group {
-            width: calc(50% - 16px) !important;
-            margin: 8px !important;
-        }
-    }
-        
-            span {
-                color: #fff !important;
-                opacity: 1 !important;
-                border-color: #fff !important;
-            }
+    
 
-            button {
-                opacity: 1 !important;
-            }
-    }
+    //  .form_group_main {
+    // display: flex !important;
+    // flex-wrap: wrap !important;
+    // margin: 0 -8px !important;
+    //     .form-group {
+    //         width: calc(50% - 16px) !important;
+    //         margin: 8px !important;
+    //     }
+    // }
+        
+    //         span {
+    //             color: #fff !important;
+    //             opacity: 1 !important;
+    //             border-color: #fff !important;
+    //         }
+
+    //         button {
+    //             opacity: 1 !important;
+    //         }
+    // }
+
+
+  }
+
+
+
+
 
 .btn:focus{
 outline: none;
@@ -339,7 +331,6 @@ a:hover{
     font-size: 16px;
     width: 49%;
 }
-
 .btn-ok{
     background-color: #4772c1 !important;
     color: #fff;

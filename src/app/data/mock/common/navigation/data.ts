@@ -80,6 +80,26 @@ export const defaultNavigation: TreoNavigationItem[] = [
                 icon: 'apps',
                 link: '/farmer/dashboard'
             },
+
+            {
+                id: 'pages.farmregistration',
+                title: 'Farm Registration',
+                type: 'basic',
+                icon: 'heroicons_outline:clipboard-list',
+                link: '/farmer/farmregistration'
+            },
+
+            {
+                id: 'pages.cropsearch',
+                title: 'Crop Search',
+                type: 'basic',
+                icon: 'search',
+                link: '/farmer/cropsearch'
+            },
+
+
+
+
             // {
             //     id: 'pages.addticket',
             //     title: 'Add Ticket',
@@ -98,9 +118,16 @@ export const defaultNavigation: TreoNavigationItem[] = [
                 id: 'pages.viewassignedcrop',
                 title: 'View Assigned Crop',
                 type: 'basic',
-                icon: 'apps',
+                icon: 'heroicons_outline:view-list',
+                badge: {
+                    title: '10',
+                    style: 'rounded',
+                    background: 'rgb(23, 254, 255)',
+                    color: 'rgb(26,32,46)',
+                },
                 link: '/farmer/viewassignedcrop'
             },
+
           
            
         ]

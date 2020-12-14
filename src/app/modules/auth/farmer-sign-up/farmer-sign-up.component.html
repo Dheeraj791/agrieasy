@@ -1,69 +1,75 @@
 <div class="content-layout fullwidth-basic-normal-scroll">
+  <treo-card class="auth-card fullscreen">
+    <!-- Form container -->
+    <div class="form-container">
+      <div class="form">
+        <!-- Logo -->
+        <div class="logo">
+          <img src="assets/images/logo/logo.svg" />
+        </div>
 
-    <treo-card class="auth-card fullscreen">
+        <!-- Title -->
+        <div class="title">Sign up</div>
 
-        <!-- Form container -->
-        <div class="form-container">
+        <!-- Message -->
+        <treo-message
+          *ngIf="message"
+          [appearance]="message.appearance"
+          [showIcon]="message.showIcon"
+          [type]="message.type"
+          [@shake]="message.shake"
+        >
+          {{ message.content }}
+        </treo-message>
 
-            <div class="form">
+   
 
-                <!-- Logo -->
-                <div class="logo">
-                    <img src="assets/images/logo/logo.svg">
-                </div>
 
-                <!-- Title -->
-                <div class="title">Sign up</div>
-              
+        <!-- Sign Up form -->
+        <form [formGroup]="FarmersignUpForm">
+          <!-- Name field -->
+          <mat-form-field>
+            <mat-label>Full name</mat-label>
+            <mat-icon svgIcon="feather:user"></mat-icon>
+            <input id="name" matInput [formControlName]="'name'" />
 
-                <!-- Message -->
-                <treo-message *ngIf="message"
-                             [appearance]="message.appearance"
-                             [showIcon]="message.showIcon"
-                             [type]="message.type"
-                             [@shake]="message.shake">
-                    {{message.content}}
-                </treo-message>
+            <mat-error
+              *ngIf="FarmersignUpForm.get('name').hasError('required')"
+            >
+              Full name is required
+            </mat-error>
+          </mat-form-field>
 
-                
+          <mat-form-field>
+            <mat-label>Phone Number</mat-label>
+            <mat-icon svgIcon="feather:phone"></mat-icon>
+            <input id="phone" matInput [formControlName]="'phone'" />
+            <mat-error
+              *ngIf="FarmersignUpForm.get('phone').hasError('required')"
+            >
+              Phone number is required
+            </mat-error>
+          </mat-form-field>
+          <mat-checkbox
+            [color]="'primary'"
+            [formControlName]="'whatsapp'"
+            (click)="toggleShow()"
+          >
+            <div ng-show="myVar">Whatsapp Number Same?</div>
+          </mat-checkbox>
 
-           
-                <!-- Sign Up form -->
-                <form [formGroup]="FarmersignUpForm">
+          <div *ngIf="isShown" class="row container-fluid" id="divshow">
+            <mat-label>Whatsapp Number</mat-label>
+            <mat-form-field>
+              <mat-icon svgIcon="feather:smartphone"></mat-icon>
 
-                    <!-- Name field -->
-                    <mat-form-field>
-                        <mat-label>Full name</mat-label>
-                        <input id="name"
-                               matInput
-                               [formControlName]="'name'">
-                        <mat-error *ngIf="FarmersignUpForm.get('name').hasError('required')">
-                            Full name is required
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label>Phone Number</mat-label>
-                        <input id="phone"
-                               matInput
-                               [formControlName]="'phone'">
-                        <mat-error *ngIf="FarmersignUpForm.get('phone').hasError('required')">
-                            Phone number is required
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-checkbox [color]="'primary'"
-                                      [formControlName]="'whatsapp'" (click)="toggleShow()">
-                        <div ng-show="myVar">Whatsapp Number Same?</div>                        
-                    </mat-checkbox>       
-                      
-                    <div *ngIf="isShown" class="row container-fluid"  id="divshow" >
-                            <mat-label>Whatsapp Number</mat-label>
-                            <mat-form-field>
-                                <input id="whatsappnumber"
-                                   matInput
-                                   [formControlName]="'whatsappnumber'" placeholder="Please provide your whatsapp Number" ></mat-form-field>
-                        </div>
-<!-- 
+              <input
+                id="whatsappnumber"
+                matInput
+                [formControlName]="'whatsappnumber'"
+            /></mat-form-field>
+          </div>
+          <!-- 
                         <mat-form-field *ngIf = "whatsapp === 'false'">
                             <mat-label>Whatsapp Number</mat-label>
                             <input id="phone"
@@ -74,23 +80,23 @@
                             </mat-error>
                         </mat-form-field> -->
 
-                
+          <!-- Email field -->
+          <mat-form-field>
+            <mat-label>Email address</mat-label
+            ><mat-icon svgIcon="feather:mail"></mat-icon>
 
-                    <!-- Email field -->
-                    <mat-form-field>
-                        <mat-label>Email address</mat-label>
-                        <input id="email"
-                               matInput
-                               [formControlName]="'email'">
-                        <mat-error *ngIf="FarmersignUpForm.get('email').hasError('required')">
-                            Email address is required
-                        </mat-error>
-                        <mat-error *ngIf="FarmersignUpForm.get('email').hasError('email')">
-                            Please enter a valid email address
-                        </mat-error>
-                    </mat-form-field>
+            <input id="email" matInput [formControlName]="'email'" />
+            <mat-error
+              *ngIf="FarmersignUpForm.get('email').hasError('required')"
+            >
+              Email address is required
+            </mat-error>
+            <mat-error *ngIf="FarmersignUpForm.get('email').hasError('email')">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
 
-                    <!-- Password field
+          <!-- Password field
                     <mat-form-field>
                         <mat-label>Password</mat-label>
                         <input id="password"
@@ -112,118 +118,127 @@
                         </mat-error>
                     </mat-form-field> -->
 
+          <!-- State field -->
+          <mat-form-field>
+            <mat-label>Select States</mat-label
+            ><mat-icon svgIcon="dripicons:location"></mat-icon>
 
-                    
+            <mat-select
+              [(ngModel)]="selectedState"
+              [ngModelOptions]="{ standalone: true }"
+              (selectionChange)="onSelect($event)"
+            >
+              <mat-option>None</mat-option>
+              <mat-option
+                *ngFor="let states of dropdownList"
+                [value]="states.value"
+              >
+                {{ states.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-                   
+          <mat-form-field>
+            <mat-label>Select City</mat-label
+            ><mat-icon svgIcon="dripicons:location"></mat-icon>
 
-                     <!-- State field -->                   
-                     <mat-form-field>
-                        <mat-label>Select States</mat-label>
-                            <mat-select [(ngModel)]="selectedState" [ngModelOptions]="{standalone: true}" (selectionChange) = "onSelect($event)">
-                                <mat-option>None</mat-option>
-                                    <mat-option *ngFor = "let states of dropdownList" [value] = "states.value">
-                                        {{states.viewValue}} 
-                                </mat-option>
-                            </mat-select>
-                    </mat-form-field>
-   
-                       <mat-form-field>
-                        <mat-label>Select City</mat-label>
-                            <mat-select [(ngModel)] = "selectedCity" [ngModelOptions]="{standalone: true}">
-                                <mat-option>None</mat-option>
-                                    <mat-option *ngFor = "let city of cities" [value] = "city">
-                                        {{city}}
-                                </mat-option>
-                            </mat-select>
-                    </mat-form-field>                 
-                   
+            <mat-select
+              [(ngModel)]="selectedCity"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let city of cities" [value]="city">
+                {{ city }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-                       <mat-form-field>
-                        <mat-label>Taluka/Tehsil</mat-label>
-                        <input id="tehsil"
-                               matInput
-                               [formControlName]="'tehsil'">
-                        <mat-error *ngIf="FarmersignUpForm.get('tehsil').hasError('required')">
-                            Tehsil is required
-                        </mat-error>
-                    </mat-form-field>
-                   
+          <mat-form-field>
+            <mat-label>Taluka/Tehsil</mat-label
+            ><mat-icon svgIcon="dripicons:location"></mat-icon>
 
-                    <mat-form-field>
-                        <mat-label>Village</mat-label>
-                        <input id="village"
-                               matInput
-                               [formControlName]="'village'">
-                        <mat-error *ngIf="FarmersignUpForm.get('tehsil').hasError('required')">
-                            Village is required
-                        </mat-error>
-                    </mat-form-field>
-                   
+            <input id="tehsil" matInput [formControlName]="'tehsil'" />
+            <mat-error
+              *ngIf="FarmersignUpForm.get('tehsil').hasError('required')"
+            >
+              Tehsil is required
+            </mat-error>
+          </mat-form-field>
 
-                   
-                    <div class="field-footer">
-                        <mat-checkbox [color]="'primary'"
-                                      [formControlName]="'agreements'">
-                            <span>I agree to the</span>
-                            <a class="link"
-                               [routerLink]="['./']">Terms of Service</a>
-                            <span>and</span>
-                            <a class="link"
-                               [routerLink]="['./']">Privacy Policy</a>
-                        </mat-checkbox>
-                    </div>
+          <mat-form-field>
+            <mat-label>Village</mat-label
+            ><mat-icon svgIcon="dripicons:location"></mat-icon>
 
-                    <!-- Submit button -->
-                    <button class="submit-button treo-mat-button-large"
-                            mat-flat-button
-                            type="button"
-                            [color]="'primary'"
-                            [disabled]="FarmersignUpForm.disabled"
-                            (click)="signUp()">
-                        <span *ngIf="!FarmersignUpForm.disabled">
-                            Create your free account
-                        </span>
-                        <mat-progress-spinner *ngIf="FarmersignUpForm.disabled"
-                                              [diameter]="24"
-                                              [mode]="'indeterminate'"></mat-progress-spinner>
-                    </button>
+            <input id="village" matInput [formControlName]="'village'" />
+            <mat-error
+              *ngIf="FarmersignUpForm.get('tehsil').hasError('required')"
+            >
+              Village is required
+            </mat-error>
+          </mat-form-field>
 
-                </form>
+          <div class="field-footer">
+            <mat-checkbox [color]="'primary'" [formControlName]="'agreements'">
+              <span>I agree to the</span>
+              <a class="link" [routerLink]="['./']">Terms of Service</a>
+              <span>and</span>
+              <a class="link" [routerLink]="['./']">Privacy Policy</a>
+            </mat-checkbox>
+          </div>
 
-            </div>
+          <!-- Submit button -->
+          <button
+            class="submit-button treo-mat-button-large"
+            mat-flat-button
+            type="button"
+            [color]="'primary'"
+            [disabled]="FarmersignUpForm.disabled"
+            (click)="signUp()"
+          >
+            <span *ngIf="!FarmersignUpForm.disabled">
+              Create your free account
+            </span>
+            <mat-progress-spinner
+              *ngIf="FarmersignUpForm.disabled"
+              [diameter]="24"
+              [mode]="'indeterminate'"
+            ></mat-progress-spinner>
+          </button>
+        </form>
+      </div>
+    </div>
 
+    <!-- Content container -->
+    <div class="content-container">
+      <!-- Background - Inline SVG for easy customizations  -->
+      <svg
+        class="background"
+        viewBox="0 0 1531 891"
+        preserveAspectRatio="xMidYMax slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 182c144.327 47.973 534.462 219.712 440.509 369.87C346.555 702.028 79.877 662.846 0 638V182z"
+        ></path>
+        <path
+          d="M1405 848c-424.366 158.009-437-164-437-272s102-425 563-576v769c-21.333 29.333-63.333 55.667-126 79z"
+        ></path>
+        <path
+          d="M1531 162c-122.914-17.284-377.96 33.191-543.433 206.414C822.095 541.636 797.342 648.75 835.842 731.622c38.5 82.871 198.243 134.841 400.555 92.053C1438.71 780.886 1492.752 775.894 1531 768V162z"
+        ></path>
+      </svg>
+
+      <!-- <img src="assets/photo.jpg"> -->
+
+      <div class="content">
+        <div class="title">
+          <span>Agri Easy</span>
+          <span class="bottom-line">the smart ideas behind farming </span>
         </div>
-
-        <!-- Content container -->
-        <div class="content-container">
-
-            <!-- Background - Inline SVG for easy customizations  -->
-           <svg class="background"
-                 viewBox="0 0 1531 891"
-                 preserveAspectRatio="xMidYMax slice"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 182c144.327 47.973 534.462 219.712 440.509 369.87C346.555 702.028 79.877 662.846 0 638V182z"></path>
-                <path d="M1405 848c-424.366 158.009-437-164-437-272s102-425 563-576v769c-21.333 29.333-63.333 55.667-126 79z"></path>
-                <path d="M1531 162c-122.914-17.284-377.96 33.191-543.433 206.414C822.095 541.636 797.342 648.75 835.842 731.622c38.5 82.871 198.243 134.841 400.555 92.053C1438.71 780.886 1492.752 775.894 1531 768V162z"></path>
-            </svg>
-
-            <!-- <img src="assets/photo.jpg"> -->
-
-            <div class="content">
-                <div class="title">
-                    <span>Agri Easy</span>
-                    <span class="bottom-line">the smart ideas behind farming </span>
-                </div>
-                <button class="learn-more-button"
-                        mat-stroked-button>
-                    Learn more about us
-                </button>
-            </div>
-
-        </div>
-
-    </treo-card>
-
+        <button class="learn-more-button" mat-stroked-button>
+          Learn more about us
+        </button>
+      </div>
+    </div>
+  </treo-card>
 </div>
-

@@ -1,428 +1,417 @@
 <div class="box_main">
-    <div class="col-md-12">
-        <div class="header_top_btn_new mb-5">
-          <div class="row">
-            <div class="col-md-8 custom-col-8">
-              <div class="breadcrumb">
-                <span class="path">Farmers</span><span class="separator">/</span>
-                <span class="path">Registration</span>
-              </div>
-              <h1 class="master-heading">Registered Farmers</h1>
-            </div>
+  <div class="col-md-12">
+    <div class="header_top_btn_new mb-5">
+      <div class="row">
+        <div class="col-md-8 custom-col-8">
+          <div class="breadcrumb">
+            <span class="path">Farmers</span><span class="separator">/</span>
+            <span class="path">Registration</span>
           </div>
+          <h1 class="master-heading">Registered Farmers</h1>
         </div>
       </div>
-        <div class="container">
-            <div class="col-md-12 bg-card shadow rounded overflow-hidden">
-                <div>
-                    <button class="addbtn" mat-flat-button [color]="'primary'" (click)="open(addnew)">Add New Farmer</button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="col-md-12 bg-card shadow rounded overflow-hidden">
+      <div>
+        <button
+          class="addbtn"
+          mat-flat-button
+          [color]="'primary'"
+          (click)="open(addnew, '')"
+        >
+          Add New Farmer
+        </button>
+      </div>
+      <div class="">
+        <table
+          datatable
+          [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger"
+          class="row-border hover"
+        >
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>User Id</th>
+              <th>User Name</th>
+              <th>Full Name</th>
+              <th>Status</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>FP000004</td>
+              <td>Test</td>
+              <td>Greens And Grains</td>
+              <td>
+                <mat-slide-toggle
+                  (change)="setMessage($event)"
+                  color="primary"
+                  >{{ message }}</mat-slide-toggle
+                >
+              </td>
+              <td (click)="open(editone)" class="edit_icons">
+                <mat-icon svgIcon="dripicons:pencil"></mat-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ng-template #addnew let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title" color = "primary">
+              Register New User
+            </h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form>
+              <div class="row" >
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <mat-label class="custom-label">User Type</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <mat-select
+                        placeholder="User Type"
+                        [(ngModel)]="selectedValue"
+                        name="usertype"
+                        
+                      >
+                        <mat-option
+                          *ngFor="let type of usertype"
+                          [value]="type"
+                          
+                        >
+                          {{ type }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="">
-                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>User Id</th>
-                                <th>User Name</th>
-                                <th>Full Name</th>
-                                <th>Status</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>FP000004</td>
-                                <td>Test</td>
-                                <td>Greens And Grains</td>
-                                <td><mat-slide-toggle color="primary" class="mat-slide-toggle ng-tns-c164-5 mat-primary ng-untouched ng-pristine ng-valid" tabindex="-1"><label>Inactive/Active</label></mat-slide-toggle>
-                                </td><td (click)="open(editone)" class="edit_icons">
-                                    <mat-icon svgIcon="dripicons:pencil"></mat-icon>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                      <ng-template #addnew let-modal>
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="modal-basic-title">Register New User</h4>
-                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">User Type</label>
-                                            <select class="form-control" name="activity_type">
-                                                <option value="">----SELECT USER TYPE----</option>
-                                                <option value="farmer">Farmer</option>
-                                                <option value="admin">Admin</option>
-                                                <option value="employee">Employee</option>
-                                                <option value="fpo">FPO</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Language</label>
-                                            <select class="form-control" name="activity_type">
-                                                <option value="">----CHOOSE LANGUAGE----</option>
-                                                <option value="hindi">Hindi</option>
-                                                <option value="english">English</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Username</label>
-                                            <select class="form-control" name="activity_type">
-                                                <option value="">tathagat</option>
-                                                <option value="farmer">*****</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Full Name</label>
-                                            <input type="text" placeholder="Full Name">
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="col-md-6">
+                    <mat-label class="custom-label">Language</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <mat-select
+                        placeholder="Language"
+                        [(ngModel)]="selectedValue"
+                        name="color"
+                      >
+                        <mat-option
+                          *ngFor="let lang of language"
+                          [value]="lang"
+                        >
+                          {{ lang }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="">
+                    <mat-label class="custom-label">Username</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <input
+                        matInput
+                        type="text"
+                        [(ngModel)]="username"
+                        name="username"
+                        placeholder="Username"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="">
+                    <mat-label class="custom-label">Fullname</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <input
+                        matInput
+                        type="text"
+                        [(ngModel)]="fullname"
+                        name="fullname"
+                        placeholder="Fullname"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Father Name</label>
-                                            <input type="text" placeholder="Username Here">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Gender</label>
-                                            <select class="form-control" name="activity_type">
-                                                <option>----CHOOSE GENDER----</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="">
+                    <mat-label class="custom-label">Father Name</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <input
+                        matInput
+                        type="text"
+                        [(ngModel)]="fathername"
+                        name="fathername"
+                        placeholder="Father Name"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <mat-label class="custom-label">Gender</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <mat-select
+                        placeholder="Gender"
+                        [(ngModel)]="selectedValue"
+                        name="gender"
+                      >
+                        <mat-option
+                          *ngFor="let gender of gender"
+                          [value]="gender"
+                        >
+                          {{ gender }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Email</label>
-                                            <input type="email" placeholder="Enter Email  Here">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Mobile</label>
-                                            <input type="number" placeholder="9876543210">
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="">
+                    <mat-label class="custom-label">Email</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <input
+                        matInput
+                        type="text"
+                        [(ngModel)]="email"
+                        name="email"
+                        placeholder="Email"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="">
+                    <mat-label class="custom-label">Mobile Number</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <input
+                        matInput
+                        type="number"
+                        [(ngModel)]="mobile"
+                        name="mobile"
+                        placeholder = "9432156789"
+                        required
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Password</label>
-                                            <input type="password" placeholder="********">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Confirm Password</label>
-                                            <input type="password" placeholder="Confirm Password">
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="">
+                    <mat-label class="custom-label">Password</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <input
+                        matInput
+                        type="password"
+                        [(ngModel)]="password"
+                        name="password"
+                        required
+                        placeholder="password"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="">
+                    <mat-label class="custom-label">Confirm Password</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <input
+                        matInput
+                        type="Password"
+                        [(ngModel)]="confirmpassword"
+                        name="confirmpassword"
+                        required
+                        placeholder="Confirm Password"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
 
-                                <p><strong>Address</strong></p>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Country</label>
-                                            <select class="form-control" name="activity_type">
-                                                <option value="">Select</option>
-                                                <option value="1">India</option> 
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">State</label>
-                                            <select class="form-control" name="activity_type">
-                                                <option value="">Select State</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <mat-label class="custom-label">Country</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <mat-select
+                        placeholder="Country"
+                        [(ngModel)]="selectedValue"
+                        name="country"
+                      >
+                        <mat-option
+                          *ngFor="let country of country"
+                          [value]="country"
+                        >
+                          {{ country }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field></div>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="flex-auto">
+                        <mat-label>Select States</mat-label>
+                            <mat-select placeholder = " States "[(ngModel)]="selectedState" [ngModelOptions]="{standalone: true}" (selectionChange) = "onSelect($event)">
+                                <mat-option>None</mat-option>
+                                    <mat-option *ngFor = "let states of dropdownList" [value] = "states.value">
+                                        {{states.viewValue}} 
+                                </mat-option>
+                            </mat-select>
+                    </mat-form-field>
+                </div>
+              </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">District</label>
-                                            <select class="form-control" name="activity_type">
-                                                <option value="">Select District</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="dateOfBirth">Tehsil</label>
-                                            <select class="form-control" name="activity_type">
-                                                <option value="">Select Tehsil</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Village</label>
-                                                <select class="form-control" name="activity_type">
-                                                    <option value="">Select village</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Pincode</label>
-                                                <select class="form-control" name="activity_type">
-                                                    <option value="">452020</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Address</label>
-                                                <textarea name="" id="" cols="30" rows="10">
-                                                </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Upload Photo</label>
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFile">
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-dark"
-                                (click)="modal.close('Save click')">SIGNUP</button>
-                        </div>
-                    </ng-template>
-
-                    
-                    <ng-template #editone let-modal>
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="modal-basic-title"></h4>
-                                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">User Type</label>
-                                                <input type="text" placeholder="fpo">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Language</label>
-                                                <select class="form-control" name="activity_type">
-                                                    <option value="english">english</option>
-                                                    <option value="english">English</option>
-                                                    <option value="hindi">Hindi</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Username</label>
-                                                <input type="text" placeholder="gng">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Full Name</label>
-                                                <input type="text" placeholder="Greens And Grains">
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Email</label>
-                                                <input type="email" placeholder="ankit.m@cybertatva.com">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Mobile</label>
-                                                <input type="number" placeholder="7415587271">
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <p><strong>Contact Info</strong></p>
-    
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Country</label>
-                                                <select class="form-control" name="activity_type">
-                                                    <option value="">Select</option>
-                                                    <option value="1">India</option> 
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">State</label>
-                                                <select class="form-control" name="activity_type">
-                                                    <option value="">Select State</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">District</label>
-                                                <select class="form-control" name="activity_type">
-                                                    <option value="">Select District</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="dateOfBirth">Tehsil</label>
-                                                <select class="form-control" name="activity_type">
-                                                    <option value="">Select Tehsil</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="dateOfBirth">Village</label>
-                                                    <select class="form-control" name="activity_type">
-                                                        <option value="">Select village</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="dateOfBirth">Pincode</label>
-                                                    <select class="form-control" name="activity_type">
-                                                        <option value="">452020</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="dateOfBirth">Address</label>
-                                                    <textarea name="" id="" cols="30" rows="10">
-    
-                                                    </textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="dateOfBirth">Upload Photo</label>
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="customFile">
-                                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-dark"
-                                    (click)="modal.close('Save click')">Generate Notification</button>
-                            </div>
-                        </ng-template>
-    
-                    
-                     <ng-template #delete let-modal class="delete_modal">
-                        <div class="modal-header">
-                            Are you sure ?
-                        </div>
-    
-                        <div class="modal-body">
-                            <button type="button" class="btn btn-outline-dark btn_delete"
-                                (click)="modal.close('Save click')">
-                                Delete
-                            </button>
-                            <button type="button" class=" btn btn-outline-dark close btn_close" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')">
-                                cancel
-                            </button>
-                        </div>
-    
-                        <div class="modal-footer">
-    
-                        </div>
-                    </ng-template>
-    
-                
+              <div class="row">
+                <div class="col-md-6">
+                   <div class = "">
+                    <mat-form-field class="flex-auto">
+                        <mat-label>Select City</mat-label>
+                            <mat-select placeholder = " City "[(ngModel)] = "selectedCity" [ngModelOptions]="{standalone: true}">
+                                <mat-option>None</mat-option>
+                                    <mat-option *ngFor = "let city of cities" [value] = "city">
+                                        {{city}}
+                                </mat-option>
+                            </mat-select>
+                    </mat-form-field> 
                 </div>
             </div>
-        </div>
-    </div>
-    <br>
-    <div class="content-layout fullwidth-standard-normal-scroll field_form_sec">
-        <div class="main">
-            <div class="max-w-3xl">
-                <div class="rich-text">
-                    <p>
-                        All Rights Reserved by Cyber Tatva. Designed and Developed by. <a href="#"> Cyber Tatva.</a>
-                    </p>
+
+                <div class="col-md-6">
+                    <div class="">
+                        <mat-label class="custom-label">Tehsil</mat-label>
+                        <mat-form-field class="flex-auto">
+                          <input
+                            matInput
+                            type="text"
+                            [(ngModel)]="tehsil"
+                            name="tehsil"
+                            required
+                            placeholder="Tehsil"
+                          />
+                        </mat-form-field>
+                      </div>
                 </div>
-    
-            </div>
-        </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="">
+                        <mat-label class="custom-label">Village</mat-label>
+                        <mat-form-field class="flex-auto">
+                          <input
+                            matInput
+                            type="text"
+                            [(ngModel)]="village"
+                            name="village"
+                            required
+                            placeholder="Village"
+                          />
+                        </mat-form-field>
+                      </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="">
+                    <mat-label class="custom-label">Pincode</mat-label>
+                    <mat-form-field class="flex-auto">
+                      <input
+                        matInput
+                        type="number"
+                        [(ngModel)]="pincode"
+                        name="pincode"
+                        required
+                        placeholder="Pincode"
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <p><strong>Address</strong></p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="">
+                    <mat-form-field class="flex-auto">
+                      <textarea
+                        matInput
+                        [placeholder]="'Address'"
+                        [rows]="5"
+                      ></textarea>
+                      <mat-icon matPrefix [svgIcon]="'notes'"></mat-icon>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-label class="custom-label">Upload Photo </mat-label>
+                  <div class="button-wrap">
+                    <label class="new-button" for="upload">
+                      Upload Photo {{ symp_image_flag }}
+                    </label>
+                    <input id="upload" type="file" name="symp_image" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="modal.close('Save click')"
+            >
+              Register
+            </button>
+          </div>
+        </ng-template>
+      </div>
     </div>
-    
-      
-      <script>
-      // Add the following code if you want the name of the file appear on select
-      $(".custom-file-input").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-      });
-      </script>
+  </div>
+</div>
+<br />
+
+<div class="content-layout fullwidth-standard-normal-scroll field_form_sec">
+  <div class="main">
+    <div class="max-w-3xl">
+      <div class="rich-text">
+        <p>
+          All Rights Reserved by Cyber Tatva. Designed and Developed by.
+          <a href="#"> Cyber Tatva.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+</script>

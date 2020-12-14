@@ -21,14 +21,15 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
+import { YouTubePlayerModule } from "@angular/youtube-player";
 
 
-FullCalendarModule.registerPlugins([
-    dayGridPlugin,
-    timeGridPlugin,
-    listPlugin,
-    interactionPlugin
-  ])
+// FullCalendarModule.registerPlugins([
+//     dayGridPlugin,
+//     timeGridPlugin,
+//     listPlugin,
+//     interactionPlugin
+//   ])
 
 const routerConfig: ExtraOptions = {
     scrollPositionRestoration: 'enabled',
@@ -63,7 +64,9 @@ const routerConfig: ExtraOptions = {
 
         NgbModule,
         CKEditorModule,
-        FullCalendarModule
+        FullCalendarModule,
+        YouTubePlayerModule
+
     ],
     bootstrap   : [
         AppComponent

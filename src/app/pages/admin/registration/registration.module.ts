@@ -14,6 +14,7 @@ import { InstallfpoComponent } from '../registration/installfpo/installfpo.compo
 import { RegisteredusersComponent } from '../registration/registeredusers/registeredusers.component';
 import { MarketvendorsComponent } from '../registration/marketvendors/marketvendors.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ imports     : [
         MatInputModule,
         MatMenuModule,
         CKEditorModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatSelectModule
 ]
 })
 export class RegistrationModule { }

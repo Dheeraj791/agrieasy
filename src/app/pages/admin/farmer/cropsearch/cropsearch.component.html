@@ -1,0 +1,1053 @@
+<div class="box_main">
+  <div
+    class="col-md-12 bg-card shadow rounded overflow-hidden"
+    style="background-color: #f1f5f9"
+  >
+    <div class="header_top_btn_new mb-5">
+      <div class="row">
+        <div class="col-md-8 custom-col-8">
+          <div class="breadcrumb">
+            <span class="path">Farmer</span><span class="separator">/</span>
+            <span class="path">Crop Search</span>
+          </div>
+          <h1 class="master-heading">Crop Search</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="margin: 0px 0px !important">
+      <div class="row">
+        <div class="col-md-12 bg-card shadow rounded overflow-hidden">
+          <mat-vertical-stepper [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="firstFormGroup">
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Search Farm</ng-template>
+
+                <mat-form-field
+                  class="mat-form-field custom-flex"
+                  style="width: 50%; border-radius: 24px"
+                >
+                <mat-icon svgIcon="heroicons_outline:search"></mat-icon>
+
+                  <mat-select
+                    [(ngModel)]="selectedFarm"
+                    [ngModelOptions]="{ standalone: true }"
+                  >
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let search of farm"                           [value]="search"
+                    >
+                      {{ search }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <div>
+                  <button
+                    mat-flat-button
+                    matStepperNext
+                    [color]="'primary'"
+                    style="float: right"
+                  >
+                    Next<mat-icon svgIcon="dripicons:forward"></mat-icon>
+
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup" label="Sowing Date">
+              <form [formGroup]="secondFormGroup">
+                <mat-form-field
+                  class="mat-form-field custom-flex"
+                  style="width: 50%"
+                >
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    placeholder="Pick a date"
+                    style="border-color: transparent"
+                    required />
+                  <mat-datepicker-toggle
+                    [touchUi]="true"
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker
+                ></mat-form-field>
+                <div>
+                  <button
+                    mat-flat-button
+                    matStepperPrevious
+                    [color]="'primary'"
+                  >
+                  <mat-icon svgIcon="feather:corner-left-up"></mat-icon>
+                  Back
+                  </button>
+                  <button
+                    mat-flat-button
+                    matStepperNext
+                    [color]="'primary'"
+                    style="float: right"
+                    (click)="toggleShow()"
+                  >
+                    Next<mat-icon svgIcon="dripicons:forward"></mat-icon>
+
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Select Crop</ng-template>
+
+              <div class="row" *ngIf="isShown" id="divshow" @expandCollapse>
+                <div
+                  class="flex flex-auto w-2/3 p-4 overflow-hidden lt-xl:w-full"
+                >
+                  <div
+                    class="flex flex-col flex-auto bg-card shadow-md rounded overflow-hidden"
+                  >
+                    <div class="p-6">
+                      <div
+                        class="font-bold text-md text-secondary uppercase tracking-wider"
+                      >
+                        Result
+                      </div>
+                    </div>
+                    <div class="overflow-auto">
+                      <table
+                        mat-table=""
+                        matsort=""
+                        class="mat-table cdk-table mat-sort w-full bg-transparent"
+                        role="grid"
+                      >
+                        <thead role="rowgroup">
+                          <tr
+                            role="row"
+                            mat-header-row=""
+                            class="mat-header-row cdk-header-row ng-star-inserted"
+                          >
+                            <th
+                              role="columnheader"
+                              mat-header-cell=""
+                              mat-sort-header=""
+                              class="mat-sort-header mat-header-cell cdk-header-cell bg-cool-gray-50 dark:bg-cool-gray-700 border-t ng-tns-c151-1402 cdk-column-transactionId mat-column-transactionId ng-star-inserted"
+                              aria-sort="none"
+                            >
+                              <div
+                                role="button"
+                                class="mat-sort-header-container mat-focus-indicator ng-tns-c151-1402"
+                                tabindex="0"
+                              >
+                                <div
+                                  class="mat-sort-header-content ng-tns-c151-1402"
+                                  style="padding: 25px"
+                                >
+                                  <span
+                                    class="whitespace-no-wrap ng-tns-c151-1402"
+                                  >
+                                    ID
+                                  </span>
+                                </div>
+                                <div
+                                  class="mat-sort-header-arrow ng-trigger ng-trigger-arrowPosition ng-tns-c151-1402 ng-star-inserted"
+                                  style="opacity: 0; transform: translateY(25%)"
+                                >
+                                  <div
+                                    class="mat-sort-header-stem ng-tns-c151-1402"
+                                  ></div>
+                                  <div
+                                    class="mat-sort-header-indicator ng-tns-c151-1402 ng-trigger ng-trigger-indicator"
+                                    style="transform: translateY(0px)"
+                                  >
+                                    <div
+                                      class="mat-sort-header-pointer-left ng-tns-c151-1402 ng-trigger ng-trigger-leftPointer"
+                                      style="transform: rotate(-45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-right ng-tns-c151-1402 ng-trigger ng-trigger-rightPointer"
+                                      style="transform: rotate(45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-middle ng-tns-c151-1402"
+                                    ></div>
+                                  </div>
+                                </div>
+                                <!---->
+                              </div>
+                            </th>
+                            <th
+                              role="columnheader"
+                              mat-header-cell=""
+                              mat-sort-header=""
+                              class="mat-sort-header mat-header-cell cdk-header-cell bg-cool-gray-50 dark:bg-cool-gray-700 border-t ng-tns-c151-1403 cdk-column-date mat-column-date ng-star-inserted"
+                              aria-sort="none"
+                            >
+                              <div
+                                role="button"
+                                class="mat-sort-header-container mat-focus-indicator ng-tns-c151-1403"
+                                tabindex="0"
+                              >
+                                <div
+                                  class="mat-sort-header-content ng-tns-c151-1403"
+                                >
+                                  <span
+                                    class="whitespace-no-wrap ng-tns-c151-1403"
+                                  >
+                                    Date
+                                  </span>
+                                </div>
+                                <div
+                                  class="mat-sort-header-arrow ng-trigger ng-trigger-arrowPosition ng-tns-c151-1403 ng-star-inserted"
+                                  style="transform: translateY(25%); opacity: 0"
+                                >
+                                  <div
+                                    class="mat-sort-header-stem ng-tns-c151-1403"
+                                  ></div>
+                                  <div
+                                    class="mat-sort-header-indicator ng-tns-c151-1403 ng-trigger ng-trigger-indicator"
+                                    style="transform: translateY(0px)"
+                                  >
+                                    <div
+                                      class="mat-sort-header-pointer-left ng-tns-c151-1403 ng-trigger ng-trigger-leftPointer"
+                                      style="transform: rotate(-45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-right ng-tns-c151-1403 ng-trigger ng-trigger-rightPointer"
+                                      style="transform: rotate(45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-middle ng-tns-c151-1403"
+                                    ></div>
+                                  </div>
+                                </div>
+                                <!---->
+                              </div>
+                            </th>
+                            <th
+                              role="columnheader"
+                              mat-header-cell=""
+                              mat-sort-header=""
+                              class="mat-sort-header mat-header-cell cdk-header-cell bg-cool-gray-50 dark:bg-cool-gray-700 border-t ng-tns-c151-1404 cdk-column-name mat-column-name ng-star-inserted"
+                              aria-sort="none"
+                            >
+                              <div
+                                role="button"
+                                class="mat-sort-header-container mat-focus-indicator ng-tns-c151-1404"
+                                tabindex="0"
+                              >
+                                <div
+                                  class="mat-sort-header-content ng-tns-c151-1404"
+                                >
+                                  <span
+                                    class="whitespace-no-wrap ng-tns-c151-1404"
+                                  >
+                                    Crop Name
+                                  </span>
+                                </div>
+                                <div
+                                  class="mat-sort-header-arrow ng-trigger ng-trigger-arrowPosition ng-tns-c151-1404 ng-star-inserted"
+                                  style="transform: translateY(25%); opacity: 0"
+                                >
+                                  <div
+                                    class="mat-sort-header-stem ng-tns-c151-1404"
+                                  ></div>
+                                  <div
+                                    class="mat-sort-header-indicator ng-tns-c151-1404 ng-trigger ng-trigger-indicator"
+                                    style="transform: translateY(0px)"
+                                  >
+                                    <div
+                                      class="mat-sort-header-pointer-left ng-tns-c151-1404 ng-trigger ng-trigger-leftPointer"
+                                      style="transform: rotate(-45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-right ng-tns-c151-1404 ng-trigger ng-trigger-rightPointer"
+                                      style="transform: rotate(45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-middle ng-tns-c151-1404"
+                                    ></div>
+                                  </div>
+                                </div>
+                                <!---->
+                              </div>
+                            </th>
+
+                            <th
+                              role="columnheader"
+                              mat-header-cell=""
+                              mat-sort-header=""
+                              class="mat-sort-header mat-header-cell cdk-header-cell bg-cool-gray-50 dark:bg-cool-gray-700 border-t ng-tns-c151-1404 cdk-column-name mat-column-name ng-star-inserted"
+                              aria-sort="none"
+                            >
+                              <div
+                                role="button"
+                                class="mat-sort-header-container mat-focus-indicator ng-tns-c151-1404"
+                                tabindex="0"
+                              >
+                                <div
+                                  class="mat-sort-header-content ng-tns-c151-1404"
+                                >
+                                  <span
+                                    class="whitespace-no-wrap ng-tns-c151-1404"
+                                  >
+                                    Soil Type
+                                  </span>
+                                </div>
+                                <div
+                                  class="mat-sort-header-arrow ng-trigger ng-trigger-arrowPosition ng-tns-c151-1404 ng-star-inserted"
+                                  style="transform: translateY(25%); opacity: 0"
+                                >
+                                  <div
+                                    class="mat-sort-header-stem ng-tns-c151-1404"
+                                  ></div>
+                                  <div
+                                    class="mat-sort-header-indicator ng-tns-c151-1404 ng-trigger ng-trigger-indicator"
+                                    style="transform: translateY(0px)"
+                                  >
+                                    <div
+                                      class="mat-sort-header-pointer-left ng-tns-c151-1404 ng-trigger ng-trigger-leftPointer"
+                                      style="transform: rotate(-45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-right ng-tns-c151-1404 ng-trigger ng-trigger-rightPointer"
+                                      style="transform: rotate(45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-middle ng-tns-c151-1404"
+                                    ></div>
+                                  </div>
+                                </div>
+                                <!---->
+                              </div>
+                            </th>
+
+                            <th
+                              role="columnheader"
+                              mat-header-cell=""
+                              mat-sort-header=""
+                              class="mat-sort-header mat-header-cell cdk-header-cell bg-cool-gray-50 dark:bg-cool-gray-700 border-t ng-tns-c151-1406 cdk-column-status mat-column-status ng-star-inserted"
+                              aria-sort="none"
+                            >
+                              <div
+                                role="button"
+                                class="mat-sort-header-container mat-focus-indicator ng-tns-c151-1406"
+                                tabindex="0"
+                              >
+                                <div
+                                  class="mat-sort-header-content ng-tns-c151-1406"
+                                >
+                                  <span
+                                    class="whitespace-no-wrap ng-tns-c151-1406"
+                                  >
+                                    Duration
+                                  </span>
+                                </div>
+                                <div
+                                  class="mat-sort-header-arrow ng-trigger ng-trigger-arrowPosition ng-tns-c151-1406 ng-star-inserted"
+                                  style="transform: translateY(25%); opacity: 0"
+                                >
+                                  <div
+                                    class="mat-sort-header-stem ng-tns-c151-1406"
+                                  ></div>
+                                  <div
+                                    class="mat-sort-header-indicator ng-tns-c151-1406 ng-trigger ng-trigger-indicator"
+                                    style="transform: translateY(0px)"
+                                  >
+                                    <div
+                                      class="mat-sort-header-pointer-left ng-tns-c151-1406 ng-trigger ng-trigger-leftPointer"
+                                      style="transform: rotate(-45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-right ng-tns-c151-1406 ng-trigger ng-trigger-rightPointer"
+                                      style="transform: rotate(45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-middle ng-tns-c151-1406"
+                                    ></div>
+                                  </div>
+                                </div>
+                                <!---->
+                              </div>
+                            </th>
+                            <!---->
+
+                            <th
+                              role="columnheader"
+                              mat-header-cell=""
+                              mat-sort-header=""
+                              class="mat-sort-header mat-header-cell cdk-header-cell bg-cool-gray-50 dark:bg-cool-gray-700 border-t ng-tns-c151-1406 cdk-column-status mat-column-status ng-star-inserted"
+                              aria-sort="none"
+                            >
+                              <div
+                                role="button"
+                                class="mat-sort-header-container mat-focus-indicator ng-tns-c151-1406"
+                                tabindex="0"
+                              >
+                                <div
+                                  class="mat-sort-header-content ng-tns-c151-1406"
+                                >
+                                  <span
+                                    class="whitespace-no-wrap ng-tns-c151-1406"
+                                  >
+                                    Select Crop
+                                  </span>
+                                </div>
+                                <div
+                                  class="mat-sort-header-arrow ng-trigger ng-trigger-arrowPosition ng-tns-c151-1406 ng-star-inserted"
+                                  style="transform: translateY(25%); opacity: 0"
+                                >
+                                  <div
+                                    class="mat-sort-header-stem ng-tns-c151-1406"
+                                  ></div>
+                                  <div
+                                    class="mat-sort-header-indicator ng-tns-c151-1406 ng-trigger ng-trigger-indicator"
+                                    style="transform: translateY(0px)"
+                                  >
+                                    <div
+                                      class="mat-sort-header-pointer-left ng-tns-c151-1406 ng-trigger ng-trigger-leftPointer"
+                                      style="transform: rotate(-45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-right ng-tns-c151-1406 ng-trigger ng-trigger-rightPointer"
+                                      style="transform: rotate(45deg)"
+                                    ></div>
+                                    <div
+                                      class="mat-sort-header-pointer-middle ng-tns-c151-1406"
+                                    ></div>
+                                  </div>
+                                </div>
+                                <!---->
+                              </div>
+                            </th>
+                          </tr>
+                          <!---->
+                        </thead>
+                        <tbody role="rowgroup">
+                          <tr
+                            role="row"
+                            mat-row=""
+                            class="mat-row cdk-row order-row h-16 ng-star-inserted"
+                          >
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-transactionId mat-column-transactionId ng-star-inserted"
+                              style="padding: 25px"
+                            >
+                              <span
+                                class="pr-6 font-medium text-sm text-secondary whitespace-no-wrap"
+                              >
+                                1
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-date mat-column-date ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Oct 08, 2019
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Potato</span
+                              >
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Black Soil
+                              </span>
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-status mat-column-status ng-star-inserted"
+                            >
+                              <span
+                                class="inline-flex items-center font-bold text-xs px-2 py-2px rounded-full tracking-wide uppercase green-200"
+                                ><span
+                                  class="w-2 h-2 rounded-full mr-2 bg-green"
+                                ></span
+                                ><span
+                                  class="pr-2px leading-relaxed whitespace-no-wrap"
+                                  >1 month</span
+                                ></span
+                              >
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <mat-checkbox [color]="'primary'"> </mat-checkbox>
+                            </td>
+
+                            <!---->
+                          </tr>
+                          <tr
+                            role="row"
+                            mat-row=""
+                            class="mat-row cdk-row order-row h-16 ng-star-inserted"
+                          >
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-transactionId mat-column-transactionId ng-star-inserted"
+                              style="padding: 25px"
+                            >
+                              <span
+                                class="pr-6 font-medium text-sm text-secondary whitespace-no-wrap"
+                              >
+                                2
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-date mat-column-date ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Dec 18, 2019
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Tomato
+                              </span>
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Red Soil</span
+                              >
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-status mat-column-status ng-star-inserted"
+                            >
+                              <span
+                                class="inline-flex items-center font-bold text-xs px-2 py-2px rounded-full tracking-wide uppercase green-200"
+                                ><span
+                                  class="w-2 h-2 rounded-full mr-2 bg-green"
+                                ></span
+                                ><span
+                                  class="pr-2px leading-relaxed whitespace-no-wrap"
+                                  >2 month</span
+                                ></span
+                              >
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <mat-checkbox [color]="'primary'"> </mat-checkbox>
+                            </td>
+                            <!---->
+                          </tr>
+                          <tr
+                            role="row"
+                            mat-row=""
+                            class="mat-row cdk-row order-row h-16 ng-star-inserted"
+                          >
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-transactionId mat-column-transactionId ng-star-inserted"
+                              style="padding: 25px"
+                            >
+                              <span
+                                class="pr-6 font-medium text-sm text-secondary whitespace-no-wrap"
+                              >
+                                3
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-date mat-column-date ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Dec 25, 2019
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Chilli
+                              </span>
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Alluvial Soil
+                              </span>
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-status mat-column-status ng-star-inserted"
+                            >
+                              <span
+                                class="inline-flex items-center font-bold text-xs px-2 py-2px rounded-full tracking-wide uppercase green-200"
+                                ><span
+                                  class="w-2 h-2 rounded-full mr-2 bg-green"
+                                ></span
+                                ><span
+                                  class="pr-2px leading-relaxed whitespace-no-wrap"
+                                  >1 month</span
+                                ></span
+                              >
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <mat-checkbox [color]="'primary'"> </mat-checkbox>
+                            </td>
+                            <!---->
+                          </tr>
+                          <tr
+                            role="row"
+                            mat-row=""
+                            class="mat-row cdk-row order-row h-16 ng-star-inserted"
+                          >
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-transactionId mat-column-transactionId ng-star-inserted"
+                              style="padding: 25px"
+                            >
+                              <span
+                                class="pr-6 font-medium text-sm text-secondary whitespace-no-wrap"
+                              >
+                                4
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-date mat-column-date ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Nov 29, 2019
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Lady finger
+                              </span>
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Red Soil
+                              </span>
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-status mat-column-status ng-star-inserted"
+                            >
+                              <span
+                                class="inline-flex items-center font-bold text-xs px-2 py-2px rounded-full tracking-wide uppercase green-200"
+                                ><span
+                                  class="w-2 h-2 rounded-full mr-2 bg-green"
+                                ></span
+                                ><span
+                                  class="pr-2px leading-relaxed whitespace-no-wrap"
+                                  >1.5 month</span
+                                ></span
+                              >
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <mat-checkbox [color]="'primary'"> </mat-checkbox>
+                            </td>
+                            <!---->
+                          </tr>
+                          <tr
+                            role="row"
+                            mat-row=""
+                            class="mat-row cdk-row order-row h-16 ng-star-inserted"
+                          >
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-transactionId mat-column-transactionId ng-star-inserted"
+                              style="padding: 25px"
+                            >
+                              <span
+                                class="pr-6 font-medium text-sm text-secondary whitespace-no-wrap"
+                              >
+                                5
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-date mat-column-date ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Nov 24, 2019
+                              </span>
+                            </td>
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Capsicum
+                              </span>
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <span class="pr-6 whitespace-no-wrap">
+                                Black Soil</span
+                              >
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-status mat-column-status ng-star-inserted"
+                            >
+                              <span
+                                class="inline-flex items-center font-bold text-xs px-2 py-2px rounded-full tracking-wide uppercase green-200"
+                                ><span
+                                  class="w-2 h-2 rounded-full mr-2 bg-green"
+                                ></span
+                                ><span
+                                  class="pr-2px leading-relaxed whitespace-no-wrap"
+                                  >2 month</span
+                                ></span
+                              >
+                            </td>
+
+                            <td
+                              role="gridcell"
+                              mat-cell=""
+                              class="mat-cell cdk-cell cdk-column-name mat-column-name ng-star-inserted"
+                            >
+                              <mat-checkbox [color]="'primary'"> </mat-checkbox>
+                            </td>
+                            <!---->
+                          </tr>
+                          <!----><!---->
+                        </tbody>
+                        <tfoot role="rowgroup">
+                          <tr
+                            role="row"
+                            mat-footer-row=""
+                            class="mat-footer-row cdk-footer-row h-16 ng-star-inserted"
+                          >
+                            <td
+                              role="gridcell"
+                              mat-footer-cell=""
+                              colspan="6"
+                              class="mat-footer-cell cdk-footer-cell px-3 border-none cdk-column-recentOrdersTableFooter mat-column-recentOrdersTableFooter ng-star-inserted"
+                            >
+                              <button
+                                mat-button=""
+                                class="mat-focus-indicator mat-button mat-button-base mat-primary"
+                              >
+                                <span class="mat-button-wrapper">
+                                  See all crops </span
+                                ><span
+                                  matripple=""
+                                  class="mat-ripple mat-button-ripple"
+                                ></span
+                                ><span class="mat-button-focus-overlay"></span>
+                              </button>
+                            </td>
+                            <!---->
+                          </tr>
+                          <!---->
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <button mat-flat-button matStepperPrevious [color]="'primary'">
+                  <mat-icon svgIcon="feather:corner-left-up"></mat-icon>
+                  Back
+                </button>
+
+                <button
+                  mat-flat-button
+                  matStepperNext
+                  [color]="'primary'"
+                  style="float: right"
+                >
+                  Next<mat-icon svgIcon="dripicons:forward"></mat-icon>
+
+                </button>
+              </div>
+            </mat-step>
+
+            <mat-step>
+              <ng-template matStepLabel>Land Preparation</ng-template>
+
+              <treo-card
+                class="flex flex-col gt-sm:flex-row max-w-80 gt-sm:max-w-200 w-full filter-article ng-tns-c160-207"
+                ><!---->
+                <div
+                  class="flex flex-col flex-auto order-2 gt-sm:order-1 m-8 mb-4 ng-tns-c160-207 ng-star-inserted"
+                >
+                  <div class="text-2xl font-semibold leading-tight">
+                    Tomato
+                  </div>
+                  <div class="text-secondary font-medium text-md mt-1">
+                    Tomato is the edible berry of the plant Solanum lycopersicum, commonly known as a tomato plant. 
+                  </div>
+                  <div class="mt-4">
+                    Deep ploughing is recommended which is to be followed by
+                    cross cultivation with cultivator. The land needs to be
+                    levelled before transplanting of the tomato Land preparation
+                    is the first step before planting tomatoes. Almost all
+                    tomatoes are planted on raised beds in some countries.
+                  </div>
+                  <div class="mt-3 -mx-3">
+                    <button
+                      mat-button=""
+                      class="mat-focus-indicator px-3 mat-button mat-button-base mat-primary"
+                      tabindex="0"
+                    >
+                      <span class="mat-button-wrapper"> Read More </span
+                      ><span
+                        matripple=""
+                        class="mat-ripple mat-button-ripple"
+                      ></span
+                      ><span class="mat-button-focus-overlay"></span>
+                    </button>
+                  </div>
+                </div>
+                <img
+                  src="assets/tom.jpeg"
+                  class="w-80 gt-sm:w-64 order-1 gt-sm:order-2 object-cover ng-tns-c160-207 ng-star-inserted"
+                /><!----><!----><!----></treo-card
+              >
+                <app-video></app-video>
+                <youtube-player
+                  videoId="UvDzUS0Kmoc"
+                  suggestedQuality="highres"
+                  [height]="250"
+                  [width]="450"
+                  [startSeconds]="4"
+                  [endSeconds]="8"
+                >
+                </youtube-player
+              >
+
+              <treo-card
+                class="flex flex-col items-center max-w-80 w-full p-8 filter-info ng-tns-c160-233"
+                ><!---->
+                <div
+                  class="flex items-center justify-center p-5 bg-indigo-100 rounded-full ng-tns-c160-233 ng-star-inserted"
+                >
+                  <mat-icon
+                    role="img"
+                    class="mat-icon notranslate icon-size-40 text-indigo mat-icon-no-color"
+                    aria-hidden="true"
+                    data-mat-icon-type="svg"
+                    data-mat-icon-name="headset"
+                    data-mat-icon-namespace="dripicons"
+                    ><svg
+                      x="48"
+                      y="192"
+                      viewBox="0 0 24 24"
+                      fit=""
+                      height="100%"
+                      width="100%"
+                      preserveAspectRatio="xMidYMid meet"
+                      focusable="false"
+                    >
+                      <path
+                        d="M23.217 11.165l-.026 6.6c0 .574-.47 1.017-1.043 1.017-.574 0-1.043-.443-1.043-1.017l.026-6.6a8.994 8.994 0 00-2.661-6.417c-1.722-1.696-3.991-2.661-6.443-2.661h-.026c-5.009 0-9.104 4.043-9.13 9.026v6.626c0 .574-.47 1.043-1.043 1.043-.574 0-1.043-.47-1.043-1.043l.026-6.626C.811 4.983 5.846 0 12.002 0h.026c3 0 5.817 1.174 7.904 3.287a10.967 10.967 0 013.287 7.878zm-13.669.548a.792.792 0 01.261.6l-.026 10.565c0 .496-.417.861-.913.861-3.443 0-4.565-1.983-4.696-3.078v-6.104c.13-1.07 1.278-3.078 4.696-3.078h.026c.235 0 .47.052.652.235zM7.983 13.33c-1.643.261-1.93 1.226-1.983 1.409l-.026 5.817c.052.209.339 1.148 1.983 1.409l.026-8.635zm11.869 1.331l.026 5.922v.078c-.13 1.07-1.252 3.078-4.696 3.078-.496 0-.913-.339-.913-.861l-.026-10.513c0-.235.104-.47.261-.626a.864.864 0 01.652-.261h.026c3.417 0 4.565 2.009 4.696 3.104-.026.026-.026.026-.026.078zm-1.8 5.896l-.026-5.817c-.052-.209-.339-1.148-1.983-1.409l.026 8.635c1.67-.287 1.93-1.226 1.983-1.409z"
+                      ></path></svg
+                  ></mat-icon>
+                </div>
+
+                
+                <div
+                  class="text-2xl font-semibold leading-tight text-center mt-6 ng-tns-c160-233 ng-star-inserted"
+                >
+                  Audio
+                </div>
+                <div
+                  class="text-center text-secondary mt-3 ng-tns-c160-233 ng-star-inserted"
+                >
+                  Audio file
+                </div>
+                <button
+                  mat-flat-button=""
+                  class="mat-focus-indicator px-6 mt-8 mat-flat-button mat-button-base mat-primary ng-tns-c160-233 ng-star-inserted"
+                  tabindex="0"
+                >
+                  <span class="mat-button-wrapper"> Play </span
+                  ><span
+                    matripple=""
+                    class="mat-ripple mat-button-ripple"
+                  ></span
+                  ><span class="mat-button-focus-overlay"></span></button
+                ><!----><!----><!----></treo-card
+              >
+              <treo-card
+                class="flex flex-col max-w-80 w-full filter-article ng-tns-c160-201"
+                ><!---->
+                <div class="m-8 mb-4 ng-tns-c160-201 ng-star-inserted">
+                  <div class="text-2xl font-semibold leading-tight">
+                    Most beautiful and quite places to see
+                  </div>
+                  <div class="mt-4">
+                    From rocky mountains to crystal clear lakes, these are the
+                    places you must see and enjoy. In summers you can bring your
+                    food and have a little picnic on top of the amazing
+                    grasslands. In winters you can still enjoy them but with
+                    couple of inches snow on top of those grasslands.
+                  </div>
+                  <div class="mt-3 -mx-3">
+                    <button
+                      mat-button=""
+                      class="mat-focus-indicator px-3 mat-button mat-button-base mat-primary"
+                      tabindex="0"
+                    >
+                      <span class="mat-button-wrapper"> Read More </span
+                      ><span
+                        matripple=""
+                        class="mat-ripple mat-button-ripple"
+                      ></span
+                      ><span class="mat-button-focus-overlay"></span>
+                    </button>
+                  </div>
+                </div>
+                <!----><!----><!----></treo-card
+              >
+
+              <div>
+                <button mat-flat-button matStepperPrevious [color]="'primary'">
+                  <mat-icon svgIcon="feather:corner-left-up"></mat-icon>
+Back
+                </button>
+
+                <button
+                  mat-flat-button
+                  matStepperNext
+                  [color]="'primary'"
+                  style="float: right"
+                >
+                  Next<mat-icon svgIcon="dripicons:forward"></mat-icon>
+
+                </button>
+              </div>
+            </mat-step>
+
+            <mat-step>
+              <ng-template matStepLabel>Plantation Preparation</ng-template>
+
+              <div>
+                <button mat-flat-button matStepperPrevious [color]="'primary'">
+                  <mat-icon svgIcon="dripicons:wrong"></mat-icon>
+Cancel
+                </button>
+
+                <button
+                  mat-flat-button
+                  matStepperNext
+                  [color]="'primary'"
+                  style="float: right"
+                >
+                  Save<mat-icon svgIcon="dripicons:download"></mat-icon>
+
+                </button>
+              </div>
+            </mat-step>
+
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              <p>You are now done.Thank you.</p>
+              <div>
+                <button mat-flat-button matStepperPrevious [color]="'primary'">
+                  <mat-icon svgIcon="feather:corner-left-up"></mat-icon>
+Back
+                </button>
+                <button
+                  mat-flat-button
+                  (click)="stepper.reset()"
+                  [color]="'primary'"
+                  style="float: right"
+                >
+                  Reset<mat-icon svgIcon="dripicons:retweet"></mat-icon>
+
+                </button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+      var fileName = $(this).val().split("\\").pop();
+      $(this)
+        .siblings(".custom-file-label")
+        .addClass("selected")
+        .html(fileName);
+    });
+  </script>
+</div>

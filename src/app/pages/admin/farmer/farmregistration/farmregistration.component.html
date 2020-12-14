@@ -1,0 +1,181 @@
+<div class="box_main">
+  <div class="col-md-12 bg-card shadow rounded overflow-hidden" style="
+  background-color: #f1f5f9;
+">
+    <div class="header_top_btn_new mb-5">
+      <div class="row">
+        <div class="col-md-8 custom-col-8">
+          <div class="breadcrumb">
+            <span class="path">Farmer</span><span class="separator">/</span>
+            <span class="path">Farm Registration</span>
+          </div>
+          <h1 class="master-heading">Farm Registration</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+      <div class="col-md-12 bg-card shadow rounded overflow-hidden" style="
+      background-color: white;
+  ">
+        <div>
+          <button
+            class="addbtn"
+            mat-flat-button
+            [color]="'primary'"
+            (click)="open(addnew, '')"
+          >
+          <mat-icon svgIcon="dripicons:plus"></mat-icon>
+          Add New Farm
+          </button>
+        </div>
+      <div class="">
+        <table
+          datatable
+          [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger"
+          class="row-border hover"
+        >
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Farm Name</th>
+              <th>Area</th>
+              <th>Soil</th>
+              <th>Farming Type</th>
+              <th>Delete</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Dummy</td>
+              <td>Dummy</td>
+              <td>Black soil</td>
+              <td>Organic</td>
+
+              <td class="delete_icons" (click)="statusModal(delete)">
+                <mat-icon svgIcon="dripicons:trash"></mat-icon>
+              </td>
+              <td (click)="open(editone)" class="edit_icons">
+                <mat-icon svgIcon="dripicons:pencil"></mat-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ng-template #addnew let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title" color="primary">
+              Register New Farm
+            </h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body" >
+            <form>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-label class="custom-label">Farm name</mat-label>
+                  <mat-form-field class="flex-auto">
+                    <input
+                      matInput
+                      type="farmname"
+                      [(ngModel)]="farmname"
+                      name="farmname"
+                      placeholder="Farm name"
+                      required
+                    />
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-label class="custom-label">Area</mat-label>
+
+                  <mat-form-field class="flex-auto"
+                    ><input
+                      matInput
+                      type="farmname"
+                      [(ngModel)]="area"
+                      name="area"
+                      placeholder="Area"
+                      required
+                    />
+                    <mat-select [(ngModel)]="selectedValue" name="unit" placeholder="Unit" matSuffix>
+                      <mat-option *ngFor="let type of unit" [value]="type">
+                        {{ type }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-label class="custom-label">Soil type</mat-label>
+                  <mat-form-field class="flex-auto">
+                    <mat-select
+                      placeholder="Soil Type"
+                      [(ngModel)]="selectedValue"
+                      name="soiltype"
+                    >
+                      <mat-option *ngFor="let type of soiltype" [value]="type">
+                        {{ type }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-label class="custom-label">Farming type</mat-label>
+                  <mat-form-field class="flex-auto">
+                    <mat-select
+                      placeholder="Farming Type"
+                      [(ngModel)]="selectedValue"
+                      name="farmingtype"
+                    >
+                      <mat-option
+                        *ngFor="let type of farmingtype"
+                        [value]="type"
+                      >
+                        {{ type }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="modal.close('Save click')"
+            >
+              Register
+            </button>
+          </div>
+        </ng-template>
+      </div>    </div></div>
+
+      <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+          var fileName = $(this).val().split("\\").pop();
+          $(this)
+            .siblings(".custom-file-label")
+            .addClass("selected")
+            .html(fileName);
+        });
+      </script>
+  </div>
+</div>
